@@ -8,5 +8,5 @@ const connection = mysql.createConnection({
   database: "tracker_db",
   password: "rootr00t!"
 });
-console.log()
+
 module.exports = connection;
