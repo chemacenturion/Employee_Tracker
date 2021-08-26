@@ -1,7 +1,7 @@
 const figlet = require('figlet');
 const inquirer = require('inquirer');
 const connection = require("./db/connections")
-const requiredFunctions = require("./db/requiredFunctions")
+const mysql = require('mysql2');
 require("console.table")
 
 // figlet('Employee Tracker', function(err, data) {
@@ -25,7 +25,7 @@ function init() {
                 "View ALL departments",
                 "View ALL roles",
                 "View ALL employees",
-                // "Add a department",
+                "Add a department",
                 // "Add a role",
                 // "Add an employee",
                 // "Update an employee role",
@@ -40,6 +40,8 @@ function init() {
                 viewAllEmployees();
             } else if (response.menu === "End Employee Tracker") {
                 connection.end();
+            } else if (response.menu === "Add a department") {
+                addDepartment();
             }
         });
 }
@@ -66,3 +68,20 @@ function viewAllEmployees() {
         init()
     })
 };
+// func() for addDepartment input
+async function addDepartment() {
+    await inquirer
+        .prompt({
+            name: "department",
+            type: "input",
+            message: "What is the name of the department?",
+        })
+        .then((response) => {
+            connection.query(`INSERT INTO department(name) VALUES (?)`, response.department, (err, results) => {
+                if (err) {
+                    console.log(err)
+                }
+            });
+        });
+    init()
+}
