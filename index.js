@@ -1,17 +1,17 @@
 const figlet = require('figlet');
 const inquirer = require('inquirer');
 const connection = require("./db/connections")
-const mysql = require('mysql2');
 require("console.table")
 
-// figlet('Employee Tracker', function(err, data) {
-//     if (err) {
-//         console.log('Something went wrong...');
-//         console.dir(err);
-//         return;
-//     }
-//     console.log(data)
-// });
+figlet('Employee Tracker', function(err, data) {
+    if (err) {
+        console.log('Something went wrong...');
+        console.dir(err);
+        return;
+    }
+    console.log(data)
+    init();
+});
 
 
 function init() {
@@ -46,8 +46,7 @@ function init() {
         });
 }
 
-init();
-
+//  func() for viewALlDepts input
 function viewAllDepartments() {
     return connection.query("SELECT * FROM department", (err,res) => {
         console.table(res)
