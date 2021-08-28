@@ -28,7 +28,7 @@ function init() {
                 "Add a department",
                 "Add a role",
                 "Add an employee",
-                // "Update an employee role",
+                "Update an employee role",
                 "End Employee Tracker"
             ]
         }).then(response => {
@@ -44,6 +44,8 @@ function init() {
                 addRole();
             } else if (response.menu === "Add an employee") {
                 addEmployee();
+            } else if (response.menu === "Update an employee role") {
+                updateEmployee();
             } else if (response.menu === "End Employee Tracker") {
                 connection.end();
             }
@@ -167,4 +169,46 @@ async function addEmployee() {
             });
         init()
     
+    };
+// func() for updateEmployee input
+function updateEmployee() {
+    // Troubleshoot with tutor and BCs support to make connection.query response work for multiple inputs
+    connection.query("SELECT * from employee", function (err, employeeData) {
+         if (err) {
+             console.log(err)
+         };
+         const employees = employeeData.map(response => response.lastName)
+
+         inquirer
+            .prompt([
+                {
+                    type: "list",
+                    name: "employeeUpdateSelection",
+                    message: "Which employee would you like to update?",
+                    choices: employees
+                },
+                {
+                    type: "input",
+                    name: "employeeRoleUpdate",
+                    message: "What is their new roleID?"
+                }
+            ])
+            .then(function (response) {
+                connection.query("UPDATE employee SET ? WHERE ?",
+                [
+                    {
+                        role_id: response.employeeRoleUpdate
+                    },
+                    {
+                        last_name: response.employeeUpdateSelection
+                    }
+                ],
+                function (err) {
+                    if (err) {
+                        console.log(err)
+                    };
+                });
+            });
+     });
+     init()
     };
