@@ -131,33 +131,33 @@ async function addEmployee() {
         await inquirer
             .prompt([
             {
-                name: "first",
+                name: "firstName",
                 type: "input",
                 message: "What is the employee's first name?",
             },
             {
-                name: "last",
+                name: "lastName",
                 type: "input",
                 message: "What is the employee's last name?",
             },
             {
-                name: "roleId",
+                name: "roleID",
                 type: "input",
                 message: "what is the employee's role_id?"
             },
             {
-                name: "managerId",
+                name: "managerID",
                 type: "input",
                 message: "what is the manager_id of the manager this employee reports to?"
             },
             ])
             .then((response) => {
-                connection.query("INSERT INTO role SET ?",
+                connection.query("INSERT INTO employee SET ?",
                 { 
-                    first_name: response.first,
-                    last_name: response.last, 
-                    role_id: response.roleId,
-                    manager_id: response.managerId
+                    first_name: response.firstName,
+                    last_name: response.lastName, 
+                    role_id: response.roleID,
+                    manager_id: response.managerID
                 },
                     function (err,res) {
                     if (err) {
