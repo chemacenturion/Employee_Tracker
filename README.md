@@ -4,12 +4,16 @@
 This assignment centers around building an Employee Tracker application that displays in the command line via node.js, mySQL, and inquirer. It is centered around the department structure at a golf course and allows the user to view all departments, view all roles, view all employees, add a department, add a role, add an employee, and update an employee.
 
 ## Table of Contents:
+* [Demonstration](#Demonstration)
 * [Installation](#Installation)
 * [Usage](#Usage)
 * [License](#License)
 * [Contributing](#Contributing)
 * [Tests](#Tests)
 * [Questions](#Questions)
+
+## Demonstration
+[Video Tutorial Link]()
 
 ## Installation
 * To install neccesary dependencies please run the following command:
