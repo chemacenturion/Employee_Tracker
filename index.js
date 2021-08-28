@@ -88,10 +88,7 @@ async function addDepartment() {
 };
 // func() for addDepartment input
 async function addRole() {
-    // return connection.query("SELECT * FROM role", (err, res) => {
-    //     console.table(res);
-    // });
-
+// Troubleshoot with tutor and BCs support to make connection.query response work for multiple inputs
     await inquirer
         .prompt([
         {
@@ -111,11 +108,17 @@ async function addRole() {
         },
         ])
         .then((response) => {
-            connection.query(`INSERT INTO role(title, salary, department_id) VALUES (???)`, response.title, response.salary, response.id, (err, results) => {
+            connection.query("INSERT INTO role SET ?",
+            { 
+                title: response.title,
+                salary: response.salary, 
+                department_id: response.id
+            },
+                function (err,res) {
                 if (err) {
                     console.log(err)
                 }
-            });
+                });
         });
     init()
 
