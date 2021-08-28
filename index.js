@@ -26,7 +26,7 @@ function init() {
                 "View ALL roles",
                 "View ALL employees",
                 "Add a department",
-                // "Add a role",
+                "Add a role",
                 // "Add an employee",
                 // "Update an employee role",
                 "End Employee Tracker"
@@ -38,10 +38,12 @@ function init() {
                 viewAllRoles();
             } else if (response.menu === "View ALL employees") {
                 viewAllEmployees();
-            } else if (response.menu === "End Employee Tracker") {
-                connection.end();
             } else if (response.menu === "Add a department") {
                 addDepartment();
+            } else if (response.menu === "Add a role") {
+                addRole();
+            } else if (response.menu === "End Employee Tracker") {
+                connection.end();
             }
         });
 }
@@ -83,4 +85,38 @@ async function addDepartment() {
             });
         });
     init()
-}
+};
+// func() for addDepartment input
+async function addRole() {
+    // return connection.query("SELECT * FROM role", (err, res) => {
+    //     console.table(res);
+    // });
+
+    await inquirer
+        .prompt([
+        {
+            name: "title",
+            type: "input",
+            message: "What is the title of the role?",
+        },
+        {
+            name: "salary",
+            type: "input",
+            message: "What is the salary of the role?",
+        },
+        {
+            name: "id",
+            type: "input",
+            message: "what is the department id?"
+        },
+        ])
+        .then((response) => {
+            connection.query(`INSERT INTO role(title, salary, department_id) VALUES (???)`, response.title, response.salary, response.id, (err, results) => {
+                if (err) {
+                    console.log(err)
+                }
+            });
+        });
+    init()
+
+};
