@@ -13,7 +13,7 @@ This assignment centers around building an Employee Tracker application that dis
 * [Questions](#Questions)
 
 ## Demonstration
-[Video Tutorial Link]()
+[Video Tutorial Link](https://drive.google.com/file/d/1LVe_3KfbIrhSKgkVozsqLXzqlUzZtSI0/view)
 
 ## Installation
 * To install neccesary dependencies please run the following command:
