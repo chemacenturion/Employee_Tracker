@@ -20,7 +20,7 @@ This assignment centers around building an Employee Tracker application that dis
 npm install
 
 ## Usage
-Allow a user to use the command line to populate a database to help manage employees at a golf course.
+Allow a user to use the command line to populate a database to help manage employees in a golf course setting.
 
 ## License
 MIT Copyright: Jose Centurion 2021
