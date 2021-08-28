@@ -27,7 +27,7 @@ function init() {
                 "View ALL employees",
                 "Add a department",
                 "Add a role",
-                // "Add an employee",
+                "Add an employee",
                 // "Update an employee role",
                 "End Employee Tracker"
             ]
@@ -42,6 +42,8 @@ function init() {
                 addDepartment();
             } else if (response.menu === "Add a role") {
                 addRole();
+            } else if (response.menu === "Add an employee") {
+                addEmployee();
             } else if (response.menu === "End Employee Tracker") {
                 connection.end();
             }
@@ -86,7 +88,7 @@ async function addDepartment() {
         });
     init()
 };
-// func() for addDepartment input
+// func() for addRole input
 async function addRole() {
 // Troubleshoot with tutor and BCs support to make connection.query response work for multiple inputs
     await inquirer
@@ -123,3 +125,46 @@ async function addRole() {
     init()
 
 };
+// func() for addEmployee input
+async function addEmployee() {
+    // Troubleshoot with tutor and BCs support to make connection.query response work for multiple inputs
+        await inquirer
+            .prompt([
+            {
+                name: "first",
+                type: "input",
+                message: "What is the employee's first name?",
+            },
+            {
+                name: "last",
+                type: "input",
+                message: "What is the employee's last name?",
+            },
+            {
+                name: "roleId",
+                type: "input",
+                message: "what is the employee's role_id?"
+            },
+            {
+                name: "managerId",
+                type: "input",
+                message: "what is the manager_id of the manager this employee reports to?"
+            },
+            ])
+            .then((response) => {
+                connection.query("INSERT INTO role SET ?",
+                { 
+                    first_name: response.first,
+                    last_name: response.last, 
+                    role_id: response.roleId,
+                    manager_id: response.managerId
+                },
+                    function (err,res) {
+                    if (err) {
+                        console.log(err)
+                    }
+                    });
+            });
+        init()
+    
+    };
