@@ -176,45 +176,48 @@ function updateEmployee() {
     connection.query("SELECT * from employee", (err, results) => {
         console.table(results)
         const employeeSelection = results.map(obj => {
-            return {name: obj.last_name, value: obj.id }
-        })
-    connection.query("SELECT * FROM role", (err, results) => {
-        console.table(results)
-        const roleSelection = results.map(obj => {
-            return { name: obj.title, value: obj.id };
-        })
-    })
+            return { name: obj.last_name, value: obj.id };
+        });
 
-    //      inquirer
-    //         .prompt([
-    //             {
-    //                 type: "list",
-    //                 name: "employeeUpdateSelection",
-    //                 message: "Which employee would you like to update?",
-    //                 choices: employees
-    //             },
-    //             {
-    //                 type: "input",
-    //                 name: "employeeRoleUpdate",
-    //                 message: "What is their new roleID?"
-    //             }
-    //         ])
-    //         .then(function (response) {
-    //             connection.query("UPDATE employee SET ? WHERE ?",
-    //             [
-    //                 {
-    //                     role_id: response.employeeRoleUpdate
-    //                 },
-    //                 {
-    //                     last_name: response.employeeUpdateSelection
-    //                 }
-    //             ],
-    //             function (err) {
-    //                 if (err) {
-    //                     console.log(err)
-    //                 };
-    //             });
-    //         });
-    //  });
-    //  init()
-})};
+        connection.query("SELECT * FROM role", (err, results) => {
+            console.table(results)
+            const roleSelection = results.map(obj => {
+                return { name: obj.title, value: obj.id };
+            });
+
+            inquirer
+                .prompt([
+                    {
+                        type: "list",
+                        name: "employeeUpdateSelection",
+                        message: "Which employee would you like to update?",
+                        choices: employeeSelection
+                    },
+                    {
+                        type: "list",
+                        name: "employeeRoleUpdate",
+                        message: "What is their new role?",
+                        choices: roleSelection
+                    }
+                ])
+                .then((response) => {
+                    connection.query("UPDATE employee SET ? WHERE ?",
+                        [
+                            {
+                                role_id: response.employeeRoleUpdate
+                            },
+                            {
+                                id: response.employeeUpdateSelection
+                            }
+                        ],
+                        function (err) {
+                            if (err) {
+                                console.log(err)
+                            }
+                        init()
+                        });
+                });
+        });
+        
+    })
+};
