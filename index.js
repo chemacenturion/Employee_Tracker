@@ -173,42 +173,48 @@ async function addEmployee() {
 // func() for updateEmployee input
 function updateEmployee() {
     // Troubleshoot with tutor and BCs support to make connection.query response work for multiple inputs
-    connection.query("SELECT * from employee", function (err, employeeData) {
-         if (err) {
-             console.log(err)
-         };
-         const employees = employeeData.map(response => response.lastName)
+    connection.query("SELECT * from employee", (err, results) => {
+        console.table(results)
+        const employeeSelection = results.map(obj => {
+            return {name: obj.last_name, value: obj.id }
+        })
+    connection.query("SELECT * FROM role", (err, results) => {
+        console.table(results)
+        const roleSelection = results.map(obj => {
+            return { name: obj.title, value: obj.id };
+        })
+    })
 
-         inquirer
-            .prompt([
-                {
-                    type: "list",
-                    name: "employeeUpdateSelection",
-                    message: "Which employee would you like to update?",
-                    choices: employees
-                },
-                {
-                    type: "input",
-                    name: "employeeRoleUpdate",
-                    message: "What is their new roleID?"
-                }
-            ])
-            .then(function (response) {
-                connection.query("UPDATE employee SET ? WHERE ?",
-                [
-                    {
-                        role_id: response.employeeRoleUpdate
-                    },
-                    {
-                        last_name: response.employeeUpdateSelection
-                    }
-                ],
-                function (err) {
-                    if (err) {
-                        console.log(err)
-                    };
-                });
-            });
-     });
-     init()
-    };
+    //      inquirer
+    //         .prompt([
+    //             {
+    //                 type: "list",
+    //                 name: "employeeUpdateSelection",
+    //                 message: "Which employee would you like to update?",
+    //                 choices: employees
+    //             },
+    //             {
+    //                 type: "input",
+    //                 name: "employeeRoleUpdate",
+    //                 message: "What is their new roleID?"
+    //             }
+    //         ])
+    //         .then(function (response) {
+    //             connection.query("UPDATE employee SET ? WHERE ?",
+    //             [
+    //                 {
+    //                     role_id: response.employeeRoleUpdate
+    //                 },
+    //                 {
+    //                     last_name: response.employeeUpdateSelection
+    //                 }
+    //             ],
+    //             function (err) {
+    //                 if (err) {
+    //                     console.log(err)
+    //                 };
+    //             });
+    //         });
+    //  });
+    //  init()
+})};
